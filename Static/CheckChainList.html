@@ -41,6 +41,14 @@
                   <div class="">
                     <a href="http://www.blockcomet.com/chain-new.html" target="view_window" class="btn btn-primary ">新增项目</a>
                   </div>
+                  <br>
+                  <div class="classify_menu">
+                    <button type="button" class="btn btn-info classify" data-type=" " name="button" onclick="">全部</button>
+                    <button type="button" class="btn btn-warning classify" data-type="0" name="button" onclick="">审核中</button>
+                    <button type="button" class="btn btn-primary classify" data-type="1" name="button" onclick="">审核通过</button>
+                    <button type="button" class="btn btn-danger classify" data-type="2" name="button" onclick="">驳回</button>
+                  </div>
+
 			            <table class="table table-striped table-bordered table-hover " id="chainTable" >
                     <thead>
                      <tr>
@@ -88,6 +96,7 @@
 
     <script>
 
+        var type = '';
         $(document).ready(function() {
             /* Init DataTables */
             var oTable = $('#chainTable').DataTable({
@@ -141,6 +150,7 @@
 	                param.pageSize = data.length;//页面显示记录条数，在页面显示每页显示多少项的时候
 	                param.currentPage = (data.start / data.length)+1;//当前页码
 	                param.title = (data.search.value==null?"":data.search.value);//名称
+                  param.type = type
 	                //ajax请求数据
 	                GetPageNewsInfo(param,function(result){
 	                	if(result.code=="0"){
@@ -186,8 +196,9 @@
 
 
 	    function GetPageNewsInfo(param,callback){
-		  	var uri = 'blockchain/quarydata?currentPage='+param.currentPage+'&pageSize='+param.pageSize + '&projectName=' + param.title;
-		    doChainCheckGet(uri,function(res){
+		  	var uri = 'blockchain/quarydata?currentPage='+param.currentPage+'&pageSize='+param.pageSize +
+                  '&projectName=' + param.title + '&type=' + param.type;
+		    doJavaGet(uri,function(res){
 		        if (callback) {
 		            callback(res);
 		        }
@@ -228,7 +239,7 @@
               lock:true,
               ok: function(e){
                   doPassProject(projectId)
-                  $("#iframe_DashBoard",parent.document).attr('src',"./Static/CheckChainList.html");
+                  // $("#iframe_DashBoard",parent.document).attr('src',"./Static/CheckChainList.html");
               }
           });
       }
@@ -248,61 +259,26 @@
 
 
       function doPassProject(projectId){
+
         var userInfo = JSON.parse(window.localStorage.getItem("userinfo"))
-        var uri = 'blockchain/projectReview';
-        data = {
-          "projectId": projectId,
-          "userId": window.localStorage.userid,
-          "type": 1,
-          "userPwd": userInfo.userPwd
-        };
+        var uri = 'blockchain/projectReview?projectId=' + projectId + '&userId=' + window.localStorage.userid
+                   + '&type=1' + '&userPwd=' + userInfo.userPwd;
+        uri = encodeURI(uri)
+        doJavaGet(uri,function(res){
 
-        $.ajax({
-            type: 'GET',
-            url : CheckChainApi + uri,
-            data: data,
-            dataType : 'json',
-            contentType: 'application/json; charset=UTF-8',
-
-            success: function (result) {
-              console.log('审核通过')
-            },
-            error: function (err) {
-
-            },
-            complete: function(){
-              $("#iframe_DashBoard",parent.document).attr('src',"./Static/CheckChainList.html");
-            }
-        });
+		    });
 
       }
 
       function doRejectProject(projectId,reject_reason){
         var userInfo = JSON.parse(window.localStorage.getItem("userinfo"))
-        var uri = 'blockchain/projectReview';
-        data = {
-          "projectId": projectId,
-          "userId": window.localStorage.userid,
-          "type": 2,
-          "userPwd": userInfo.userPwd,
-          "rejectReason": reject_reason
-        };
-        $.ajax({
-            type: 'GET',
-            url : CheckChainApi + uri,
-            data: data,
-            dataType : 'json',
-            contentType: 'application/json; charset=UTF-8',
+        var uri = 'blockchain/projectReview?projectId=' + projectId + '&userId=' + window.localStorage.userid
+                   + '&type=2' + '&userPwd=' + userInfo.userPwd;
 
-            success: function (result) {
-            },
-            error: function (err) {
-            },
-            complete: function(){
-              $("#iframe_DashBoard",parent.document).attr('src',"./Static/CheckChainList.html");
-            }
-
+        uri = encodeURI(uri)
+          doJavaGet(uri,function(res){
         });
+
 
       }
 
@@ -314,6 +290,21 @@
       })
 
       var userInfo = JSON.parse(window.localStorage.getItem("userinfo"))
+
+      $('.classify_menu').on('click', '.classify',function(){
+        var self = this
+        type = $(self).data('type');
+        // changeType(type);
+        reloadTable();
+      })
+
+
+      // function changeType(e){
+      // }
+
+      function reloadTable(){
+        $('#chainTable').DataTable().ajax.reload()
+      }
 
     </script>
 
