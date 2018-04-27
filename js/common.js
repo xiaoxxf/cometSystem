@@ -13,9 +13,12 @@ var WebApiToken;
 //var WebApiHost="http://localhost:2579/";
 // var WebApiHost="http://221.209.110.28:5700/";
 var WebApiHost="https://api.blockcomet.com/";
-var WebApiHostJavaApi = "http://backend.blockcomet.com/"
-// var WebApiHostJavaApi = "http://10.0.0.175:8080/";
-var CheckChainApi = "http://testapi.blockcomet.com/"
+// var WebApiHostJavaApi = "http://backend.blockcomet.com/"
+var WebApiHostJavaApi = "http://10.0.0.183:8080/"
+// var WebApiHostJavaApi = "http://testapi.blockcomet.com/"
+
+// var CheckChainApi = "http://10.0.0.183:8080/";
+// var CheckChainApi = "http://testapi.blockcomet.com/"
 function doRequest(apiHost, method, data, callback, contentType, showtips) {
     //GetCookie
     if (!WebApiToken) {
@@ -67,6 +70,7 @@ function doPostJavaApi(baseUrl, data, callback, contentType, showtips) {
 }
 
 
+
 function doPost(baseUrl, data, callback, contentType, showtips) {
     var requestUri = WebApiHost + "v0" + baseUrl;
     doRequest(requestUri, "POST", data, callback, contentType);
@@ -80,11 +84,6 @@ function doPut(baseUrl, data, callback, contentType, showtips) {
 function doDelete(baseUrl, data, callback, contentType, showtips) {
     var requestUri = WebApiHost + "v0" + baseUrl;
     doRequest(requestUri, "Delete", data, callback, contentType);
-}
-
-function doChainCheckGet(baseUrl, callback, showtips) {
-    var requestUri = CheckChainApi + baseUrl;
-    doRequest(requestUri, "GET", null, callback);
 }
 
 //获取url中的参数

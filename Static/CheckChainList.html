@@ -264,8 +264,9 @@
         var uri = 'blockchain/projectReview?projectId=' + projectId + '&userId=' + window.localStorage.userid
                    + '&type=1' + '&userPwd=' + userInfo.userPwd;
         uri = encodeURI(uri)
+        debugger
         doJavaGet(uri,function(res){
-
+          debugger
 		    });
 
       }
