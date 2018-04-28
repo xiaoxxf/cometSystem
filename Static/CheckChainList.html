@@ -264,9 +264,13 @@
         var uri = 'blockchain/projectReview?projectId=' + projectId + '&userId=' + window.localStorage.userid
                    + '&type=1' + '&userPwd=' + userInfo.userPwd;
         uri = encodeURI(uri)
-        debugger
+
         doJavaGet(uri,function(res){
-          debugger
+          if (res.code == 0) {
+            layer.msg('审核成功')
+          }else if(res.code == -1){
+            layer.msg('审核失败，请重试')
+          }
 		    });
 
       }
@@ -277,7 +281,12 @@
                    + '&type=2' + '&userPwd=' + userInfo.userPwd;
 
         uri = encodeURI(uri)
-          doJavaGet(uri,function(res){
+        doJavaGet(uri,function(res){
+          if (res.code == 0) {
+            layer.msg('驳回成功')
+          }else if(res.code == -1){
+            layer.msg('驳回失败，请重试')
+          }
         });
 
 
