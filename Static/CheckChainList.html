@@ -267,9 +267,12 @@
 
         doJavaGet(uri,function(res){
           if (res.code == 0) {
-            layer.msg('审核成功')
+            alert('审核成功')
+            // layer.msg('审核成功')
           }else if(res.code == -1){
-            layer.msg('审核失败，请重试')
+            alert('审核失败，请重试')
+            console.log(res.msg)
+            // layer.msg('审核失败，请重试')
           }
 		    });
 
@@ -283,9 +286,12 @@
         uri = encodeURI(uri)
         doJavaGet(uri,function(res){
           if (res.code == 0) {
-            layer.msg('驳回成功')
+            alert('驳回成功')
+            // layer.msg('驳回成功')
           }else if(res.code == -1){
-            layer.msg('驳回失败，请重试')
+            alert('驳回失败，请重试')
+            console.log(res.msg)
+            // layer.msg('驳回失败，请重试')
           }
         });
 
