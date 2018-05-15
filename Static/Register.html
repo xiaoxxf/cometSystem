@@ -33,7 +33,7 @@
 						</select>
 					</p>
 				<!--<button type="text" class="sure" id="btn_register">确定</button>-->
-					        <a   id="btn_register" class="sure_a">提交</a>  
+					        <a   id="btn_register" class="sure_a">提交</a>
 					<button type="reset" class="reset">重置</button>
 
 				</div>
@@ -51,17 +51,17 @@
 
 				var userName = $("#username").val();
 				//userName = document.getElementById("username").value;
-				debugger
+				// debugger
 				var passWord = $("#password").val();
 				var userType = $("#user_type").val();
 				var realName = $("#real_username").val();
 				var tel = $("#tel").val();
 
 				if(userName != null && passWord != null && userType != undefined &&realName !=null &&tel !=null) {
-					
+
 					var pwd = hex_md5( userName+passWord)
-					
-					
+
+
 					var uri = 'news/register?userName=' + userName + '&passWord=' + passWord + '&userType=' + userType + '&realName=' + realName + '&tel=' + tel;
 					var data = {
 						"userName": userName,
@@ -72,7 +72,7 @@
 					};
 					data = JSON.stringify(data);
 					doJavaGet(uri, function(res) {
-						
+
 						if(res != null && res.code == 0) {
 							alert(res.msg);
 						} else {
