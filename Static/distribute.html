@@ -19,7 +19,7 @@
 	                    <h5>奖励</h5>
 	                </div>
 	                <div class="ibox-content">
-	                    <input type="text" class="search_input" placeholder="输入关键词搜索"/>
+	                    <input type="text" class="search_input" placeholder="输入用户名搜索"/>
 	                    <button class="searchbutton" onclick="searchButton()">搜索</button>
 	                    <table class="table table-striped table-bordered table-hover " id="distributeTable" >
 	                        <thead>
@@ -62,8 +62,9 @@
 		//搜索
 		var stoploading=false;
 		var creator="" ; //搜索用户id
-		var userName=""; //搜索用户昵称
+		var realName=""; //搜索用户昵称
 		function searchButton(){
+			debugger
 			$('#distributeTable').css("display","inline-table");
 			//搜索用户的接口 -loginUser 当前登录人id
 			var userId=localStorage.getItem("userid");
@@ -71,11 +72,12 @@
 			var uri = 'news/quaryusers?loginUser='+ userId + '&userName=' + searchInput;
 			doJavaGet(uri,function(res){
 				if(res.code == 0){
+					debugger
 					layer.msg(res.msg);
 					if(res.datas != null){
 						creator=res.datas.id; //搜索结果id
-						userName=res.datas.userName;
-						$('.username').html(userName);
+						realName=res.datas.realName;
+						$('.username').html(realName);
 					}
 
 				}else if(res.code == -1){
