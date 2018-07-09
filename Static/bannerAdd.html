@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>广告编辑</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../css/plugins/steps/jquery.steps.css" rel="stylesheet">
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="../css/adver.css" />
+
+</head>
+
+<body style="background-color: #fdfeff;">
+    <div id="wrapper">
+        <div>
+           <div class="row">
+                <div class="col-lg-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-title">
+                            <h5>banner编辑</small></h5>
+                            <div class="ibox-tools">
+                                <a class="collapse-link">
+                                    <i class="fa fa-chevron-up"></i>
+                                </a>
+                                <a class="close-link">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="ibox-content">
+                            <div class="row">
+                                <div class="">
+                                    <form class="form-horizontal" id="form_NewsInfo">
+                                        <div class="form-group"><label class="col-sm-2 control-label">banner地址</label>
+                                            <div class="col-sm-9"><input type="text" id="ip_hrefUrl" name="newsHrefUrl" class="form-control"></div>
+                                        </div>
+                                         <div class="form-group"><label class="col-sm-2 control-label">banner地址</label>
+                                            <div class="col-sm-9"><input type="text" id="ip_hrefUrl" name="newsHrefUrl" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group"><label class="col-sm-2 control-label">banner图片</label>
+                                            <!--<div class="col-sm-9"><input type="text" id="ip_adversIcon" name="newsAdversIcon" class="form-control"></div>-->
+                                            <div class="col-sm-9">
+                                            	<div class="col-md-4 col-xs-4 col-sm-4">
+													<div class="avatar" id="result">
+														<img src="">
+													</div>
+												</div>
+												<div class="col-md-4 col-xs-4 col-sm-4">
+													<a href="javascript:;" class="file btn btn-hollow ">选择banner图
+														<input type="file" id="adver_logo_input" class='adver_logo' >
+													</a>
+												</div>
+                                            </div>
+                                        </div>
+                                         <div class="form-group"><label class="col-sm-2 control-label">banner类型</label>
+                                            <div class="col-sm-9">
+                                            	<input type="text" id="selectType" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="hr-line-dashed"></div>
+                                    </form>
+                                    <div class="col-sm-4 col-sm-offset-2">
+                                        <!--<button class="btn btn-default" id="btn_Cancel" onclick="Cancel()">取消</button>-->
+                                        <button onclick="SaveBannerInfo()"  class="btn btn-primary" id="btn_Save">保存</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <input type="hidden"  id="hid_actionType" value="0" />
+    <input type="hidden"  id="hid_newsId" value="0" />
+    <input type="hidden"  id="hid_county" />
+    <!-- Mainly scripts -->
+    <script src="../js/jquery-2.1.1.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../js/inspinia.js"></script>
+    <script src="../js/plugins/pace/pace.min.js"></script>
+
+    <!-- Steps -->
+    <script src="../js/plugins/staps/jquery.steps.min.js"></script>
+
+    <!-- Jquery Validate -->
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/plugins/datapicker/bootstrap-datepicker.js"></script>
+    <!-- Jquery Validate -->
+    <script src="../js/plugins/validate/jquery.validate.min.js"></script>
+    <script src="../js/plugins/ckeditor/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" src="../js/plugins/ckeditor/js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="../js/plugins/ckeditor/js/qiniu.min.js"></script>
+	<script src="../js/md5.js"></script>
+	<script src="../js/layer/layer.js"></script>
+	
+    <script>
+
+		//上传头像
+		var imageType = /image.*/;
+		var imageMaxSize = 1*1024*1024;
+		
+		//预览图片
+		$('#adver_logo_input').on('change',function(){
+			var file = this.files[0]
+		
+		  if(!file){
+		    return false;
+		  }
+		
+		  // 校验图片
+		  if (!file.type.match(imageType) || file.size > imageMaxSize) {
+		    layer.msg('请选择小于1M的图片文件',{time:1000})
+		    return false
+		  }
+		
+			var preview = $('#result').find('img')[0];
+			var reader = new FileReader();
+			reader.addEventListener("load", function() {
+				// var image = new Image();
+				// image.src = reader.result;
+				// image.onload = function() {
+				// 		if (image.width > 300 || image.height > 300) {
+				// 				layer.msg('请选择宽高小于300 * 300的图片')
+				// 				return
+				// 		}else{
+				// 			preview.src = reader.result; //拿到图片的结果
+				// 		}
+				// };
+				preview.src = reader.result; //拿到图片的结果
+			}, false);
+		
+			if(file) {
+				reader.readAsDataURL(file);
+			}
+		})
+		
+		var ui = {
+			'fileUpLoading': false
+		}
+		var pic = '';
+		var logo_file = null
+		function uploadImg(){
+			var file = $('#adver_logo_input')[0].files[0]
+			// 校验图片
+			if(file==null){
+			//layer.msg('未更改头像');
+				return false
+			}
+			else if (!file.type.match(imageType) || file.size > imageMaxSize) {
+				layer.msg('请选择小于1M的图片文件',{time:1000})
+				return false
+			}
+		
+			var formData = new FormData();
+			formData.append('file', file);
+		
+			$.ajax({
+				url: WebApiHostJavaApi + 'common/upload',
+				type: "post",
+				data: formData,
+				datType: "json",
+				processData: false, // 不处理数据
+				contentType: false, // 不设置内容类型
+				beforeSend: function(){
+			    ui.fileUpLoading = true
+			    },
+				success: function(data) {
+					if(data.code == 0){
+						pic = data.datas[0];
+					}else if(data.code == -1){
+						layer.msg('上传失败请重试')
+					}
+		
+				},
+				 error:function(e){
+			       ui.fileUpLoading = false
+			       alert("上传错误，请重试！");
+			    }
+		
+			});
+		}
+		
+		//保存新增banner信息		
+		function SaveBannerInfo(){
+			var hrefUrl=$("#ip_hrefUrl").val();
+//			var str = localStorage.getItem('userinfo');
+			var type=$("#selectType").val();
+//			var jsonStr = JSON.parse(str);
+			var uri = 'advertise/addAdertise';
+			if(type=="" || type==undefined){
+				layer.msg("类型不能为空!");
+				return
+			}
+			debugger
+			var data = {
+				'adverTitle':"none",
+				'adverPic': pic,
+				'adverUrl': hrefUrl,
+				'type': type
+			}
+		    var userInfo=localStorage.getItem("userinfo");
+			var userPwd ="";
+			if(userInfo){
+				 userPwd=JSON.parse(userInfo).userPwd;
+			}
+			
+			$.ajax({
+				url: WebApiHostJavaApi + uri,
+				type: "post",
+		        headers: {
+		            token: localStorage.getItem("userid"),
+		           	userPwd:userPwd
+//		            "request-id": guid() + new Date().getTime()
+		        },
+          		data: JSON.stringify(data),
+          		dataType : 'json',
+          		async: false,//使用同步的方式,true为异步方式
+//        		contentType: 'application/json; charset=UTF-8',
+//				processData: false, // 不处理数据
+				contentType: 'application/json', // 不设置内容类型
+				beforeSend: function(){
+			    	ui.fileUpLoading = true
+			    },
+				success: function(data) {
+					if(data.code == 0){
+						debugger
+						layer.msg(data.msg)
+					}else if(data.code == -1){
+						layer.msg(data.msg)
+					}
+		
+				},
+				error:function(e){
+			       alert("上传错误，请重试！");
+			   	},
+			   	complete: function(){
+			   		fileUpLoading = false
+			 	}
+			
+			
+			});	
+			
+		}
+	
+    </script>
+
+</body>
+
+</html>

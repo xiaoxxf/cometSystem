@@ -1,0 +1,59 @@
+.adverIconAdit{
+	margin-left: 40%;
+}
+.adver_icon{
+	width: 60px;
+	height: 60px;
+}
+.adver_edit{
+	text-align: center;
+}
+.adverEdit{
+	width: 80px;
+    height: 30px;
+    margin-top: 15px;
+    border: solid 1px gainsboro;
+}
+.adverDelete{
+	width: 80px;
+    height: 30px;
+    margin-top: 15px;
+    border: solid 1px gainsboro;
+}
+
+/*banner*/
+.avatar{
+    width: 60px;
+    height: 60px;
+    border: solid 1px gainsboro;
+}
+.avatar img{
+	width: 100%;
+	height: 100%;
+}
+.btn-hollow{
+	font-size: 14px;
+    border: 1px solid #006bb3;
+    color: #006bb3!important;
+    padding: 4px 12px;
+    font-weight: 400;
+    line-height: normal;
+    background: none;
+}
+.file input{
+	position: absolute;
+    font-size: 100px;
+    right: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    text-decoration: none;
+}
+.banner_icon{
+	width: 60px;
+	height: 60px;
+}
+.deleteChoose{
+	text-align: center;
+	padding-top: 80px;
+}

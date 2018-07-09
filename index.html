@@ -155,24 +155,26 @@
         		 	LoadMenu(-1);
             }else{
                 // 账号管理
-            		var account = '  <li class="active"><a  onclick="LoadMenu(5)">版本管理</a></li> <li class="active "><a onclick="LoadMenu(2)" class="li_IsAuth">账号管理</a></li> '
+            	var account = '  <li class="active"><a  onclick="LoadMenu(5)">版本管理</a></li> <li class="active "><a onclick="LoadMenu(2)" class="li_IsAuth">账号管理</a></li> '
                 // 链库管理
                 var chain = '    <li class="active"><a  onclick="LoadMenu(3)">链库管理</a></li>'
                 // 广告位管理
                 var advertisement = ' <li class="active"><a  onclick="LoadMenu(4)">广告位管理</a></li>'
-
+                //banner管理
+//				var banner='<li class="active"><a  onclick="LoadMenu(6)">banner管理</a></li>'
                 $('#ul_Menu').append(chain)
                 $('#ul_Menu').append(account)
                 $('#ul_Menu').append(advertisement)
+//              $('#ul_Menu').append(banner)
 
             		LoadMenu(0);
             }
             function GetManagerInfo(userid,callback){
                 var uri = '/accounts/'+userid;
                 doGet(uri,function(res){
-                         if (callback) {
-                                callback(res);
-                            }
+	                if (callback) {
+	                    callback(res);
+	                }
                 });
             }
 
@@ -188,12 +190,13 @@
         			index = -1
         		}
             switch (index) {
-            	 	case -1: url = "./Static/NewsListUser.html"; break;
+            	case -1: url = "./Static/NewsListUser.html"; break;
                 case 0: url = "./Static/NewsList.html"; break;
-             	  case 2: url = "./Static/Register.html"; break;
+             	case 2: url = "./Static/Register.html"; break;
                 case 3: url = "./Static/CheckChainList.html";break;
                 case 4: url = "./Static/advertisementManger.html";break;
                 case 5: url = "./Static/VersionsList.html"; break;
+                case 6:url = "./Static/banner.html";break;
 
                 //case 3: url = "/Static/RoleList.html"; break;
             }

@@ -16,7 +16,7 @@
 	<body>
 
 		<div>
-			<form class="register" role="form" >
+			<form class="register" role="form"id="register_btn" >
 				<p class="register_title">注册</p>
 				<hr />
 
@@ -33,7 +33,7 @@
 						</select>
 					</p>
 				<!--<button type="text" class="sure" id="btn_register">确定</button>-->
-					        <a   id="btn_register" class="sure_a">提交</a>
+					<button type="button" id="btn_register" class="sure_a">提交</button>
 					<button type="reset" class="reset">重置</button>
 
 				</div>
@@ -46,12 +46,14 @@
 	<script src="../js/jquery.cookie.js"></script>
 	<script src="../js/md5.js"></script>
 	<script type="text/javascript">
+		
+		var register_flag =false;
 		$(function() {
 			$("#btn_register").click(function(e) {
-
+				if(register_flag){
+					return
+				}
 				var userName = $("#username").val();
-				//userName = document.getElementById("username").value;
-				// debugger
 				var passWord = $("#password").val();
 				var userType = $("#user_type").val();
 				var realName = $("#real_username").val();
@@ -72,9 +74,11 @@
 					};
 					data = JSON.stringify(data);
 					doJavaGet(uri, function(res) {
-
 						if(res != null && res.code == 0) {
+							debugger
 							alert(res.msg);
+							//重置
+							document.getElementById("register_btn").reset()
 						} else {
 							alert(res.msg);
 						}
@@ -83,6 +87,7 @@
 					alert("账户信息不能为空!");
 				}
 			});
+						
 		})
 	</script>
 
