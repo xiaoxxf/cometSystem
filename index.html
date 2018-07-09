@@ -38,7 +38,7 @@
                         <div class="logo-element">
                             新闻
                         </div>
-                        
+
                     </li>
                     <li class="active">
                         <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>
@@ -154,20 +154,20 @@
             if(userInfo && userInfo.level!=1){
         		 	LoadMenu(-1);
             }else{
-                // 账号管理
-            	var account = '  <li class="active"><a  onclick="LoadMenu(5)">版本管理</a></li> <li class="active "><a onclick="LoadMenu(2)" class="li_IsAuth">账号管理</a></li> '
-                // 链库管理
-                var chain = '    <li class="active"><a  onclick="LoadMenu(3)">链库管理</a></li>'
-                // 广告位管理
-                var advertisement = ' <li class="active"><a  onclick="LoadMenu(4)">广告位管理</a></li>'
-                //banner管理
-//				var banner='<li class="active"><a  onclick="LoadMenu(6)">banner管理</a></li>'
-                $('#ul_Menu').append(chain)
-                $('#ul_Menu').append(account)
-                $('#ul_Menu').append(advertisement)
-//              $('#ul_Menu').append(banner)
+              // 链库管理
+              var chain = '    <li class="active"><a  onclick="LoadMenu(3)">链库管理</a></li>'
+              // 广告位管理
+              var advertisement = ' <li class="active"><a  onclick="LoadMenu(4)">广告位管理</a></li>'
+              // 账号管理
+              var account = '  <li class="active"><a  onclick="LoadMenu(5)">版本管理</a></li> <li class="active "><a onclick="LoadMenu(2)" class="li_IsAuth">账号管理</a></li> '
+              // 发放奖励
+              var distribute = ' <li class="active"><a  onclick="LoadMenu(6)">发放奖励</a></li>'
+              $('#ul_Menu').append(chain)
+              $('#ul_Menu').append(account)
+              $('#ul_Menu').append(advertisement)
+              $('#ul_Menu').append(distribute)
 
-            		LoadMenu(0);
+              LoadMenu(0);
             }
             function GetManagerInfo(userid,callback){
                 var uri = '/accounts/'+userid;
@@ -196,7 +196,7 @@
                 case 3: url = "./Static/CheckChainList.html";break;
                 case 4: url = "./Static/advertisementManger.html";break;
                 case 5: url = "./Static/VersionsList.html"; break;
-                case 6:url = "./Static/banner.html";break;
+                case 6:url = "./Static/distribute.html";break;
 
                 //case 3: url = "/Static/RoleList.html"; break;
             }
